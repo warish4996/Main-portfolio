@@ -2,7 +2,7 @@
   "name": "portofolio",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://warishce.github.io/portfolio",
+  "homepage": "https://warishce.github.io/my-portfolio-2024",
   "dependencies": {
     "@emailjs/browser": "^3.11.0",
     "@iconscout/react-unicons": "^1.1.6",
