@@ -30,7 +30,7 @@ const Intro = () => {
           <span style={{ color: darkMode ? "white" : "" }}>Hello! I'm</span>
           <span>Warish Ali</span>
           <span>
-            Senior React Developer with 3+ years of expertise in optimizing web
+            React Developer with 3+ years of expertise in optimizing web
             applications and delivering pixel-perfect UIs. Proficient in React,
             Redux, and TypeScript.
           </span>

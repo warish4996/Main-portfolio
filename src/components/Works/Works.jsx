@@ -7,7 +7,7 @@ import TypeScriptIcon from "../../img/TypeScript.png";
 import StyledComponentsIcon from "../../img/styled-components.png";
 import { themeContext } from "../../Context";
 import { motion } from "framer-motion";
-import {Link} from 'react-scroll'
+import { Link } from "react-scroll";
 const Works = () => {
   // context
   const theme = useContext(themeContext);
@@ -20,17 +20,17 @@ const Works = () => {
       <div className="w-left">
         <div className="awesome">
           {/* dark Mode */}
-          <span style={{ color: darkMode ? "white" : "" }}>
-           Knowdlege of
-          </span>
+          <span style={{ color: darkMode ? "white" : "" }}>Knowledge of</span>
           <span>Library & Packages</span>
-          <spane>
-            Over 3 years of experience working with JavaScript, React, HTML, and CSS
+          <span>
+            Over 3 years of experience working with JavaScript, React, HTML, and
+            CSS
             <br />
-            with expertise in popular libraries and frameworks such as Redux, Styled-Components
+            with expertise in popular libraries and frameworks such as Redux,
+            Styled-Components
             <br />
             Material-UI, and TypeScript.
-          </spane>
+          </span>
           <Link to="contact" smooth={true} spy={true}>
             <button className="button s-button">Hire Me</button>
           </Link>

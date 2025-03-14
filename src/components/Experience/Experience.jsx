@@ -36,7 +36,7 @@ const Experience = () => {
           3
         </div>
         <span style={{ color: darkMode ? "white" : "" }}>companies </span>
-        <span>Work</span>
+        <span>work</span>
       </div>
     </div>
   );

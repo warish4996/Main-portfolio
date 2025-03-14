@@ -25,7 +25,7 @@ const Services = () => {
         {/* dark mode */}
         <span style={{ color: darkMode ? "white" : "" }}>My Professional</span>
         <span>Services</span>
-        <spane>
+        <span>
           Experienced React Developer specializing in building scalable web
           applications
           <br />
@@ -33,7 +33,7 @@ const Services = () => {
           <br />
           Proven track record of reducing load times and implementing
           pixel-perfect designs.
-        </spane>
+        </span>
         <a href={Resume} download>
           <button className="button s-button">Download Resume</button>
         </a>
