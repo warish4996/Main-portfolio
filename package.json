@@ -2,9 +2,9 @@
   "name": "portofolio",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://warish4996.github.io/portfolio",
+  "homepage": "https://warishce.github.io/portfolio",
   "dependencies": {
-    "@emailjs/browser": "^3.4.0",
+    "@emailjs/browser": "^3.11.0",
     "@iconscout/react-unicons": "^1.1.6",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^12.0.0",

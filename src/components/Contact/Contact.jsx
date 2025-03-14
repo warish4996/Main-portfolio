@@ -1,53 +1,74 @@
-import React, { useContext, useRef, useState } from "react";
+import React, { useContext, useState, useRef } from "react";
 import "./Contact.css";
 import emailjs from "@emailjs/browser";
 import { themeContext } from "../../Context";
+import { UilPhone, UilEnvelope } from "@iconscout/react-unicons";
+
 const Contact = () => {
   const theme = useContext(themeContext);
   const darkMode = theme.state.darkMode;
-  const [done, setDone] = useState(false)
-  const [name, setName] = useState(false)
-  const [email, setEmail] = useState(false)
-  const [message, setMessage] = useState(false)
+  const form = useRef();
+  const [done, setDone] = useState(false);
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [message, setMessage] = useState("");
+  const [sending, setSending] = useState(false);
+  const [error, setError] = useState("");
 
- const onClickHandler=(event)=>{
-    if(name===""||email===""||message===""){
-      return alert("Please Fill all feilds")
+  const onSubmitHandler = async (event) => {
+    event.preventDefault();
+    setError("");
+
+    if (name === "" || email === "" || message === "") {
+      setError("Please fill all fields");
+      return;
     }
-   const templateId = 'template_PJM3DA2Z';
-   sendFeedback( templateId,{message_html:message,from_name: name ,reply_to: email})
-   }
- 
-  const  sendFeedback= (templateId, variables)=>{
-   emailjs.send(
-     'warishce@gmail.com', templateId,variables,'user_IJpFzxT8nELts7lj7KNnX'
-     ).then(res => {
-       if(res.status === 200){
-           setTimeout(() => {
-            setEmail('')
-            setName('')
-            setMessage('')
-           }, 3000)
-       }else{
-         let msg="Mail not sent "
-         alert(msg)
-       }
- 
-     })
-     // Handle errors here however you like, or use a React error boundary
-     .catch(err => console.error('Oh well, you failed. Here some thoughts on the error that occured:', err))
-     
-  
-  }
+
+    setSending(true);
+
+    try {
+      const result = await emailjs.sendForm(
+        "service_38l9duv", // Your Gmail service ID
+        "template_PJM3DA2Z", // Your template ID
+        form.current,
+        "user_IJpFzxT8nELts7lj7KNnX" // Your public key
+      );
+
+      if (result.text === "OK") {
+        setDone(true);
+        // Clear form
+        setName("");
+        setEmail("");
+        setMessage("");
+        // Reset success message after 3 seconds
+        setTimeout(() => {
+          setDone(false);
+        }, 3000);
+      }
+    } catch (error) {
+      console.error("Error sending message:", error);
+      setError(error.text || "Failed to send message. Please try again.");
+    } finally {
+      setSending(false);
+    }
+  };
 
   return (
     <div className="contact-form" id="contact">
       {/* left side copy and paste from work section */}
       <div className="w-left">
         <div className="awesome">
-          {/* darkMode */}
-          {/* <span style={{color: darkMode?'white': ''}}>Get in Touch</span> */}
           <span>Contact me</span>
+          <div className="contact-info">
+            <div className="contact-item">
+              <UilPhone className="contact-icon" />
+              <a href="tel:+14375599508">+1 (437) 559-9508</a>
+            </div>
+            <div className="contact-item">
+              <UilEnvelope className="contact-icon" />
+              <a href="mailto:warishce@gmail.com">warishce@gmail.com</a>
+            </div>
+          </div>
           <div
             className="blur s-blur1"
             style={{ background: "#ABF1FF94" }}
@@ -56,17 +77,48 @@ const Contact = () => {
       </div>
       {/* right side form */}
       <div className="c-right">
-        <div>
-          <input type="text" name="user_name" className="user" onChange={(e)=>setName(e.target.value)}  placeholder="Name"/>
-          <input type="email" name="user_email" className="user" onChange={(e)=>setEmail(e.target.value)} placeholder="Email"/>
-          <textarea name="message" className="user" onChange={(e)=>setMessage(e.target.value)} placeholder="Message"/>
-          <input type="submit" value="Send" className="button" onClick={onClickHandler}/>
-          <span>{done && "Thanks for Contacting me"}</span>
+        <form ref={form} onSubmit={onSubmitHandler}>
+          <input
+            type="text"
+            value={name}
+            name="user_name"
+            className="user"
+            onChange={(e) => setName(e.target.value)}
+            placeholder="Name"
+            required
+            disabled={sending}
+          />
+          <input
+            type="email"
+            value={email}
+            name="user_email"
+            className="user"
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="Email"
+            required
+            disabled={sending}
+          />
+          <textarea
+            name="message"
+            value={message}
+            className="user"
+            onChange={(e) => setMessage(e.target.value)}
+            placeholder="Message"
+            required
+            disabled={sending}
+          />
+          <button type="submit" className="button" disabled={sending}>
+            {sending ? "Sending..." : "Send"}
+          </button>
+          {error && <span className="error-message">{error}</span>}
+          {done && (
+            <span className="success-message">Thanks for contacting me!</span>
+          )}
           <div
             className="blur c-blur1"
             style={{ background: "var(--purple)" }}
           ></div>
-        </div>
+        </form>
       </div>
     </div>
   );
